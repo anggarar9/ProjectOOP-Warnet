@@ -5,6 +5,8 @@ bayar diawal, lalu diberi username untuk login kedalam komputernya
 
 package warnet;
 
+import java.util.Date;
+
 /**
  *
  * @author Rifqi
@@ -31,9 +33,13 @@ public class Warnet {
         //untuk membuat supaya nomor petugas hanya huruf saja
         
         
+        
+        
         Pelanggan username1 = new Pelanggan();
         username1.setUsername(Integer.toString(Pelanggan.randInt()));
         //karena hasil dari method randInt integer, perlu diubah ke string
+        
+        
         
         
         Komputer noKomputer = new Komputer();
@@ -42,20 +48,56 @@ public class Warnet {
         }catch(Exception ez){
             System.out.println(ez.getMessage());
         }
-        cetakKupon(kupon);
         
         
         
+        
+        Biaya biaya1 = new Biaya();
+        try{
+            biaya1.setHarga("2500");//
+        }catch(Exception ea){
+            System.out.println(ea.getMessage());
+        }
+        try{
+            biaya1.setTotalWaktu("3");
+        }catch(Exception eb){
+            System.out.println(eb.getMessage());
+        }
+        try{
+            biaya1.TotalBayar(biaya1.getTotalWaktu());
+        }catch(Exception ec){
+            System.out.println(ec.getMessage());
+        }
+        
+        
+        KuponLogin kupon1 = new KuponLogin();
+        kupon1.setPetugas(petugas1);
+        kupon1.setNoKomputer(noKomputer);
+        kupon1.setUsername(username1);
+        kupon1.setWaktuMulai(new Date());
+        kupon1.setWaktuSelesai(Integer.parseInt(biaya1.getTotalWaktu()));
+        kupon1.setHarga(biaya1);
+        kupon1.setTotalBayar(biaya1.TotalBayar(biaya1.getTotalWaktu()));
+        
+                
+        
+        cetakKupon(kupon1);
     }
     
     public static void cetakKupon(KuponLogin kupon){
         System.out.println("=======================");
-        System.out.println(kupon.getPetugas());
+        System.out.println("Nama Operator: "+kupon.getPetugas().getNama());
+        System.out.println("No Operator: "+kupon.getPetugas().getNoPetugas());
         System.out.println("=======================");
-        System.out.println(kupon.getNoKomputer());
-        System.out.println(kupon.getUsername());
+        System.out.println("No Komputer: "+kupon.getNoKomputer().getNoKomputer());
+        System.out.println("Username untuk Login: "+kupon.getUsername().getUsername());
         System.out.println("=======================");
-        System.out.println(kupon.getWaktuMulai());
+        System.out.println("waktu mulai: "+kupon.getWaktuMulai());
+        System.out.println("waktu selesai: "+kupon.getWaktuSelesai());
+        System.out.println("=======================");
+        System.out.println("Harga Per-Jam: "+kupon.getHarga().getHarga());
+        System.out.println("Harga yang harus dibayarkan: "+kupon.getTotalBayar());
+        
     }
     
 }
